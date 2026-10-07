@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sabores Pasqueños | Tradición del Perú</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dorado: #d4a028;
+            --rojo-andino: #9c2c2c;
+            --verde-andino: #2e7d32;
+            --marron-fondo: #1f1208;
+            --crema: #fff8ec;
+            --naranja: #e67e22;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--crema);
+            color: #2b1f14;
+            line-height: 1.7;
+        }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+        /* ENCABEZADO IMPACTANTE */
+        header {
+            background: linear-gradient(135deg, rgba(31, 18, 8, 0.92), rgba(156, 44, 44, 0.75)),
+                        url('https://images.unsplash.com/photo-1590505462603-aa12b4650b48?w=1200') center/cover no-repeat;
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(212,160,40,0.15) 0%, transparent 60%);
+            animation: brillo 8s infinite linear;
+        }
+        @keyframes brillo {
+            0% { transform: translate(-10%, -10%); }
+            50% { transform: translate(10%, 10%); }
+            100% { transform: translate(-10%, -10%); }
+        }
+        .header-contenido { position: relative; z-index: 1; }
+        h1 {
+            font-size: clamp(2.5rem, 7vw, 4rem);
+            color: var(--dorado);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 15px rgba(0,0,0,0.3);
+        }
+        .subtitulo {
+            font-size: 1.3rem;
+            color: #ffd88e;
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+        .descripcion {
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            font-size: 1.1rem;
+        }
+        .botones { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; }
+        .btn {
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        .btn-dorado {
+            background: linear-gradient(135deg, var(--dorado), #f0b830);
+            color: var(--marron-fondo);
+            box-shadow: 0 4px 15px rgba(212,160,40,0.4);
+        }
+        .btn-dorado:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(212,160,40,0.5); }
+        .btn-transparente {
+            background: transparent;
+            color: white;
+            border: 2px solid var(--dorado);
+        }
+        .btn-transparente:hover { background: var(--dorado); color: var(--marron-fondo); }
+
+        /* SECCIONES */
+        section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+            font-size: 2.3rem;
+            color: var(--rojo-andino);
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--dorado), var(--naranja));
+            margin: 0.5rem auto 2rem;
+            border-radius: 2px;
+        }
+        .subtitulo-seccion { text-align: center; color: #6b5344; margin-bottom: 2.5rem; font-size: 1.1rem; }
+
+        /* TARJETAS ESENCIA */
+        .grid-esencia {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        .tarjeta {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            border-top: 4px solid var(--dorado);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .tarjeta:hover { transform: translateY(-8px); box-shadow: 0 12px 35px rgba(0,0,0,0.12); }
+        .tarjeta h3 { color: var(--verde-andino); margin-bottom: 1rem; font-size: 1.3rem; }
+
+        /* FILTROS DE CARTA */
+        .filtros {
+            display: flex; flex-wrap: wrap; gap: 0.7rem;
+            justify-content: center; margin-bottom: 2.5rem;
+        }
+        .filtro {
+            padding: 0.6rem 1.4rem; border: none; border-radius: 50px;
+            background: white; color: #5a4535; cursor: pointer;
+            font-weight: 500; transition: all 0.3s ease;
+        }
+        .filtro.activo, .filtro:hover {
+            background: linear-gradient(135deg, var(--rojo-andino), #b93c3c);
+            color: white; box-shadow: 0 4px 12px rgba(156,44,44,0.3);
+        }
+
+        /* PLATOS */
+        .lista-platos { display: grid; gap: 1.5rem; }
+        .plato {
+            background: white; padding: 1.6rem; border-radius: 14px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+            border-left: 4px solid var(--verde-andino);
+            transition: all 0.3s ease;
+            opacity: 1; transform: scale(1);
+        }
+        .plato.oculto { display: none; }
+        .plato:hover {
+            border-left-color: var(--dorado);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+            transform: translateX(5px);
+        }
+        .plato h4 { font-size: 1.2rem; color: var(--marron-fondo); margin-bottom: 0.4rem; }
+        .descripcion-plato { color: #6b5344; font-size: 0.95rem; margin-bottom: 0.6rem; }
+        .precio {
+            font-size: 1.4rem; font-weight: 700;
+            color: var(--rojo-andino); display: flex;
+            justify-content: space-between; align-items: center;
+        }
+        .etiqueta {
+            font-size: 0.75rem; padding: 0.25rem 0.7rem;
+            border-radius: 50px; background: #e8f5e9;
+            color: var(--verde-andino); font-weight: 600;
+        }
+
+        /* UBICACIÓN */
+        .seccion-ubicacion {
+            background: linear-gradient(135deg, #fff3e0, #f9e0c7);
+            border-radius: 20px;
+            margin-top: 2rem;
+        }
+        .info-dato {
+            font-size: 1.05rem; margin: 1rem 0;
+            padding-left: 1rem; border-left: 3px solid var(--dorado);
+        }
+        .info-dato strong { color: var(--rojo-andino); }
+
+        /* RESERVA */
+        .seccion-reserva {
+            background: linear-gradient(135deg, var(--rojo-andino), #b03838);
+            color: white; border-radius: 20px;
+            text-align: center;
+        }
+        .seccion-reserva h2 { color: white; }
+        .seccion-reserva h2::after { background: var(--dorado); }
+
+        /* PIE */
+        footer {
+            background: var(--marron-fondo);
+            color: #d4c4a8;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-contenido">
+        <h1>SABORES PASQUEÑOS</h1>
+        <p class="subtitulo">El auténtico sabor de la tierra pasqueña</p>
+        <p class="descripcion">Gastronomía tradicional de Pasco, recetas de la abuela con productos de nuestra tierra. Sabores que nos representan y nos llenan de orgullo.</p>
+        <div class="botones">
+            <a href="#carta" class="btn btn-dorado">🍽️ Ver Carta</a>
+            <a href="#reserva" class="btn btn-transparente">📅 Reservar Mesa</a>
+        </div>
+    </div>
+</header>
+
+<section>
+    <h2>Nuestra Esencia</h2>
+    <p class="subtitulo-seccion">Pasco, su gente y sus tradiciones en cada plato</p>
+    <div class="grid-esencia">
+        <div class="tarjeta">
+            <h3>🌾 Productos de Nuestra Tierra</h3>
+            <p>Papas nativas, quinua, tarwi, habas y granos que crecen en los suelos de nuestra región, cosechados con cariño por familias locales.</p>
+        </div>
+        <div class="tarjeta">
+            <h3>🔥 Recetas de Siempre</h3>
+            <p>Platos preparados como en casa, con el sazón de antes y técnicas que han pasado de generación en generación en Pasco.</p>
+        </div>
+        <div class="tarjeta">
+            <h3>💛 Orgullo Pasqueño</h3>
+            <p>Cada bocado cuenta nuestra historia. Ingredientes de altura, recetas auténticas y el sabor que nos identifica.</p>
+        </div>
+    </div>
+</section>
+
+<section id="carta">
+    <h2>Nuestra Carta</h2>
+    <p class="subtitulo-seccion">Lo mejor de la cocina de nuestra tierra</p>
+
+    <div class="filtros">
+        <button class="filtro activo" data-categoria="todos">Todos</button>
+        <button class="filtro" data-categoria="entradas">Entradas</button>
+        <button class="filtro" data-categoria="sopas">Sopas</button>
+        <button class="filtro" data-categoria="fondos">Platos de Fondo</button>
+        <button class="filtro" data-categoria="postres">Postres</button>
+        <button class="filtro" data-categoria="bebidas">Bebidas</button>
+    </div>
+
+    <div class="lista-platos">
+        <!-- ENTRADAS -->
+        <div class="plato" data-categoria="entradas">
+            <h4>Causa Pasqueña</h4>
+            <p class="descripcion-plato">Papa amarilla con ají amarillo, rellena de pollo desmenuzado, palta y huevo duro. Sazón de nuestra tierra.</p>
+            <p class="precio">S/ 22.00 <span class="etiqueta">⭐ Recomendado</span></p>
+        </div>
+
+        <!-- SOPAS -->
+        <div class="plato" data-categoria="sopas">
+            <h4>Caldo de Gallina Criolla</h4>
+            <p class="descripcion-plato">Gallina de corral, papas nativas, fideos, verduras y hierbas aromáticas. Nutritivo y reconfortante.</p>
+            <p class="precio">S/ 16.00 <span class="etiqueta">🍲 Tradicional</span></p>
+        </div>
+
+        <!-- FONDOS -->
+        <div class="plato" data-categoria="fondos">
+            <h4>Olluquito con Charqui</h4>
+            <p class="descripcion-plato">Olluco fresco cocido con carne de llama deshidratada, ají amarillo y acompañado de arroz y papa.</p>
+            <p class="precio">S/ 28.00 <span class="etiqueta">🔥 Clásico Pasqueño</span></p>
+        </div>
+
+        <div class="plato" data-categoria="fondos">
+            <h4>Cuy Chactado</h4>
+            <p class="descripcion-plato">Cuy fresco prensado y frito, servido con papas doradas, ensalada criolla y salsa de ají.</p>
+            <p class="precio">S/ 35.00 <span class="etiqueta">👑 Estrella</span></p>
+        </div>
+
+        <div class="plato" data-categoria="fondos">
+            <h4>Trucha de la Sierra</h4>
+            <p class="descripcion-plato">Trucha fresca de nuestros ríos, frita o a la parrilla, con arroz, papas y ensalada fresca.</p>
+            <p class="precio">S/ 24.00 <span class="etiqueta">🐟 Fresco</span></p>
+        </div>
+
+        <div class="plato" data-categoria="fondos">
+            <h4>Estofado de Carne con Papas Nativas</h4>
+            <p class="descripcion-plato">Carne de res tierna cocida lentamente con ají, cebolla, papas nativas y verduras de la zona.</p>
+            <p class="precio">S/ 26.00 <span class="etiqueta">🍖 Casero</span></p>
+        </div>
+
+        <!-- POSTRES -->
+        <div class="plato" data-categoria="postres">
+            <h4>Humitas con Queso</h4>
+            <p class="descripcion-plato">Masa de choclo fresco envuelta en sus hojas, dulce y suave, acompañada de queso fresco.</p>
+            <p class="precio">S/ 12.00 <span class="etiqueta">🍬 Dulce</span></p>
+        </div>
+
+        <div class="plato" data-categoria="postres">
+            <h4>Mazamorra de Calabaza</h4>
+            <p class="descripcion-plato">Preparación tradicional con calabaza, clavo, canela y miel de caña. Postre de siempre.</p>
+            <p class="precio">S/ 10.00</p>
+        </div>
+
+        <!-- BEBIDAS -->
+        <div class="plato" data-categoria="bebidas">
+            <h4>Chicha Morada de la Casa</h4>
+            <p class="descripcion-plato">Bebida refrescante de maíz morado, piña, canela y clavo. Hecha en casa con receta familiar.</p>
+            <p class="precio">S/ 8.00 <span class="etiqueta">🥤 Refrescante</span></p>
+        </div>
+
+        <div class="plato" data-categoria="bebidas">
+            <h4>Té de Muña</h4>
+            <p class="descripcion-plato">Infusión de muña de altura, hierba aromática de nuestra tierra. Calientito y reconfortante.</p>
+            <p class="precio">S/ 5.00 <span class="etiqueta">☕ Caliente</span></p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Nuestro Espacio</h2>
+    <p class="subtitulo-seccion">Un lugar acogedor en el corazón de nuestra ciudad</p>
+    <p style="text-align:center; font-size:1.1rem; max-width:800px; margin:0 auto;">Te recibimos con las puertas abiertas. Ambiente cálido, familiar y limpio. Ven y siéntete como en casa.</p>
+</section>
+
+<section class="seccion-ubicacion">
+    <h2>Encuéntranos</h2>
+    <h3 style="text-align:center; color:var(--verde-andino); margin-bottom:1.5rem;">📍 Sabores Pasqueños</h3>
+    <p class="info-dato"><strong>Dirección:</strong> Plaza Carrión — Cerro de Pasco, Pasco</p>
+    <p class="info-dato"><strong>Horarios:</strong> Lunes a Domingo: 11:00 a.m. – 9:00 p.m.</p>
+    <p class="info-dato"><strong>WhatsApp / Teléfono:</strong> <a href="https://wa.me/51974440471" target="_blank" style="color:inherit; font-weight:bold;">+51 974 440 471</a></p>
+    <p class="info-dato"><strong>Estacionamiento:</strong> Zona cercana disponible</p>
+    <div style="text-align:center; margin-top:2rem;">
+        <a href="https://wa.me/51974440471" target="_blank" class="btn btn-dorado">💬 Escribir por WhatsApp</a>
+    </div>
+</section>
+
+<section id="reserva" class="seccion-reserva">
+    <h2>Reserva tu Mesa</h2>
+    <p style="font-size:1.2rem; margin-bottom:2rem;">Escríbenos y asegura tu lugar. ¡Te esperamos!</p>
+    <a href="https://wa.me/51974440471" target="_blank" class="btn" style="background:white; color:var(--rojo-andino); font-size:1.2rem; padding:1rem 3rem;">✨ Reservar por WhatsApp</a>
+</section>
+
+<footer>
+    <p style="font-size:1.2rem; color:var(--dorado); margin-bottom:0.5rem;">SABORES PASQUEÑOS</p>
+    <p>Plaza Carrión — Cerro de Pasco | WhatsApp: 974 440 471 © 2026</p>
+</footer>
+
+<script>
+    // FILTROS FUNCIONALES
+    const botonesFiltro = document.querySelectorAll('.filtro');
+    const platos = document.querySelectorAll('.plato');
+
+    botonesFiltro.forEach(boton => {
+        boton.addEventListener('click', () => {
+            botonesFiltro.forEach(b => b.classList.remove('activo'));
+            boton.classList.add('activo');
+
+            const categoriaSeleccionada = boton.dataset.categoria;
+
+            platos.forEach(plato => {
+                if (categoriaSeleccionada === 'todos' || plato.dataset.categoria === categoriaSeleccionada) {
+                    plato.classList.remove('oculto');
+                } else {
+                    plato.classList.add('oculto');
+                }
+            });
+        });
+    });
+
+    // SCROLL SUAVE
+    document.querySelectorAll('a[href^="#"]').forEach(enlace => {
+        enlace.addEventListener('click', function(e) {
+            e.preventDefault();
+            const destino = document.querySelector(this.getAttribute('href'));
+            if (destino) {
+                destino.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
